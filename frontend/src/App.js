@@ -1,23 +1,32 @@
-// frontend/src/App.js
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import LoginPage from './pages/LoginPage';
-import RegisterPage from './pages/RegisterPage';
-import ContactsPage from './pages/ContactsPage';
-import './styles.css';
+import React from "react";
+import Layout from "./components/Layout";
+import { AuthContextProvider } from "./context/AuthContext";
+import { ToastContextProvider } from "./context/ToastContext";
+import { Routes as Switch, Route } from "react-router-dom";
+
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import CreateContact from "./pages/CreateContact";
+import AllContacts from "./pages/AllContacts";
+import EditContact from "./pages/EditContact";
 
 function App() {
   return (
-    <Router>
-      <div className="App">
-        <Routes>
-          <Route path="/" element={<LoginPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/contacts" element={<ContactsPage />} />
-        </Routes>
-      </div>
-    </Router>
+    <ToastContextProvider>
+      <AuthContextProvider>
+        <Layout>
+          <Switch>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/create" element={<CreateContact />} />
+            <Route path="/mycontacts" element={<AllContacts />} />
+            <Route path="/edit/:id" element={<EditContact />} />
+          </Switch>
+        </Layout>
+      </AuthContextProvider>
+    </ToastContextProvider>
   );
 }
 
